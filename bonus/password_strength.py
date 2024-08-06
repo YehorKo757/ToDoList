@@ -21,9 +21,7 @@ for i in password:
 
 strength["uppercase"] = uppercase
 
-total = 0
-for i in strength.values():
-    total += i
+total = sum(strength.values())
 
 if total == 3:
     print("Strong password")

@@ -7,44 +7,44 @@ while True:
         case 'add':
             todo = input("Enter a todo: ") + "\n"
 
-            file = open("todos.txt", "r")
-            todos = file.readlines()
-            file.close()
+            with open("todos.txt", "r") as file:
+                todos = file.readlines()
 
             todos.append(todo)
 
-            file = open("todos.txt", "w")
-            file.writelines(todos)
-            file.close()
+            with open("todos.txt", "w") as file:
+                file.writelines(todos)
+
         case 'show':
-            file = open("todos.txt", "r")
-            todos = file.readlines()
-            file.close()
+            with open("todos.txt", "r") as file:
+                todos = file.readlines()
 
             for index, todo in enumerate(todos):
                 print(f"{index+1}. {todo}", end='')
+
         case 'edit':
-            file = open("todos.txt", "r")
-            todos = file.readlines()
-            file.close()
+            with open("todos.txt", "r") as file:
+                todos = file.readlines()
 
             number_to_edit = int(input("What number of todo you want to edit? "))
-            todos[number_to_edit - 1] = input(f"Reenter number {number_to_edit} todo: ")
+            todos[number_to_edit - 1] = input(f"Reenter number {number_to_edit} todo: ") + "\n"
 
-            file = open("todos.txt", "w")
-            file.writelines(todos)
-            file.close()
+            with open("todos.txt", "w") as file:
+                file.writelines(todos)
+
         case 'complete':
-            file = open("todos.txt", "r")
-            todos = file.readlines()
-            file.close()
+            with open("todos.txt", "r") as file:
+                todos = file.readlines()
 
             number_to_complete = int(input("What number of todo you want to complete? "))
-            todos.remove(todos[number_to_complete - 1])
+            todo_to_remove = todos[number_to_complete - 1]
+            todos.remove(todo_to_remove)  # can also use todos.pop(number_to_complete - 1)
+            message_complete = f"Todo {todo_to_remove} was removed from the list.".replace("\n", " ", 1)
+            print(message_complete)
             
-            file = open("todos.txt", "w")
-            file.writelines(todos)
-            file.close()
+            with open("todos.txt", "w") as file:
+                file.writelines(todos)
+
         case 'exit':
             print('Bye!')
             break

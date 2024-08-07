@@ -1,7 +1,17 @@
-def get_todos():
-    with open("todos.txt", "r") as file_local:
+def get_todos(filepath="todos.txt"):
+    """ Read a text file and return the list of
+    to-do items.
+    """
+    with open(filepath, "r") as file_local:
         todos_local = file_local.readlines()
     return todos_local
+
+
+def write_todos(todos_arg, filepath="todos.txt"):
+    """ Write the to-do items list in the text file.
+    """
+    with open(filepath, "w") as file_local:
+        file_local.writelines(todos_arg)
 
 
 user_prompt = "Type add {todo}, show, edit {number in list}, complete {number in list} or exit: "
@@ -17,8 +27,7 @@ while True:
 
         todos.append(todo)
 
-        with open("todos.txt", "w") as file:
-            file.writelines(todos)
+        write_todos(todos)
 
     elif user_action.lower().startswith("show"):
         todos = get_todos()
@@ -34,8 +43,7 @@ while True:
             check = todos[number_to_edit - 1]  # Check for IndexError (input is higher than last index in list)
             todos[number_to_edit - 1] = input(f"Reenter number {number_to_edit} todo: ") + "\n"
 
-            with open("todos.txt", "w") as file:
-                file.writelines(todos)
+            write_todos(todos)
         except ValueError:
             print("Your command is not valid. Please, enter number of todo to edit")
             continue
@@ -53,8 +61,7 @@ while True:
             message_complete = f"Todo {todo_to_remove} was removed from the list.".replace("\n", " ", 1)
             print(message_complete)
 
-            with open("todos.txt", "w") as file:
-                file.writelines(todos)
+            write_todos(todos)
         except ValueError:
             print("Your command is not valid. Please, enter number of todo to complete")
             continue

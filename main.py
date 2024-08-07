@@ -1,6 +1,11 @@
 from modules import functions
+import time
 
-user_prompt = "Type add {todo}, show, edit {number in list}, complete {number in list} or exit: "
+now = time.strftime("%b %d, %Y %H:%M:%S")
+user_prompt = f"""
+It is {now}
+Type add (todo), show, edit (number in list), complete (number in list) or exit: 
+"""
 
 while True:
     user_action = input(user_prompt)

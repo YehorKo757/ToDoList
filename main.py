@@ -1,3 +1,9 @@
+def get_todos():
+    with open("todos.txt", "r") as file_local:
+        todos_local = file_local.readlines()
+    return todos_local
+
+
 user_prompt = "Type add {todo}, show, edit {number in list}, complete {number in list} or exit: "
 
 while True:
@@ -7,8 +13,7 @@ while True:
     if user_action.lower().startswith("add"):
         todo = user_action[4:] + "\n"
 
-        with open("todos.txt", "r") as file:
-            todos = file.readlines()
+        todos = get_todos()
 
         todos.append(todo)
 
@@ -16,16 +21,14 @@ while True:
             file.writelines(todos)
 
     elif user_action.lower().startswith("show"):
-        with open("todos.txt", "r") as file:
-            todos = file.readlines()
+        todos = get_todos()
 
         for index, todo in enumerate(todos):
             print(f"{index+1}. {todo}", end='')
 
     elif user_action.lower().startswith("edit"):
         try:
-            with open("todos.txt", "r") as file:
-                todos = file.readlines()
+            todos = get_todos()
 
             number_to_edit = int(user_action[5:])
             check = todos[number_to_edit - 1]  # Check for IndexError (input is higher than last index in list)
@@ -42,8 +45,7 @@ while True:
 
     elif user_action.lower().startswith("complete"):
         try:
-            with open("todos.txt", "r") as file:
-                todos = file.readlines()
+            todos = get_todos()
 
             number_to_complete = int(user_action[9:])
             todo_to_remove = todos[number_to_complete - 1]

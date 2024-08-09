@@ -1,0 +1,4 @@
+
+build/gui/gui.pkg
+dist/gui.exe
+dist/todos.txt
